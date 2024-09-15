@@ -1,3 +1,5 @@
+// deno-lint-ignore-file no-empty
+
 export const colors = {
   green: "\x1b[32m",
   yellow: "\x1b[33m",
@@ -20,12 +22,13 @@ export const exportEnv = () => {
           val = val.slice(1, val.length - 1);
         }
       }
-
       Deno.env.set(key, val);
     });
-    // deno-lint-ignore no-empty
   } catch (_) {}
 };
+exportEnv();
+
+
 
 export const route = (
   _req: Request,

@@ -1,5 +1,4 @@
-import { exportEnv, route, _fetch } from "./lib.ts";
-exportEnv();
+import { route, _fetch } from "./lib.ts";
 
 const port = parseInt(Deno.env.get("PORT") ?? "3000");
 

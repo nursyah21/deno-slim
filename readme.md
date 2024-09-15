@@ -17,8 +17,19 @@ with git
 git clone --depth 1 https://github.com/nursyah21/deno-slim . && rm -rf .git
 ```
 
-## run 
+## development
 ```bash
 deno task dev
 ```
 
+## deploy
+install deployctl
+
+```bash
+deno install -Arf jsr:@deno/deployctl
+```
+
+deploy
+```bash
+deployctl deploy
+```
