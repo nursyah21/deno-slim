@@ -1,28 +1,44 @@
 # README
 
-## initialize
+very minimalist deno framework
+
+### feature
+
+- [x] routing
+- [x] dotenv
+- [x] jwt
+- [x] bcrypt
+- [x] bodyparser
+- [x] logging
+- [x] kv database
+- [ ] file upload
+- [ ] web socket
+- [ ] send email
+- [ ] graphql
+
+### initialize
 
 first create directory project
 ```bash
 mkdir myproject && cd myproject
 ```
 
-with degit
+init with degit
 ```bash
 degit nursyah21/deno-slim .
 ```
 
-with git
+init with git
 ```bash
 git clone --depth 1 https://github.com/nursyah21/deno-slim . && rm -rf .git
 ```
 
-## development
+### development
 ```bash
-deno task dev
+deno run -A --unstable-kv --watch ./src/main.ts
 ```
 
-## deploy
+### deploy
 install deployctl
 
 ```bash
