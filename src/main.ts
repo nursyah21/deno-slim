@@ -1,5 +1,5 @@
 import { colors } from "./constants.ts";
-import { env, response } from "./helper.ts";
+import { env, envNum, response } from "./helper.ts";
 import { route, exportEnv } from "./lib.ts";
 import {
   dataHandler,
@@ -10,8 +10,8 @@ import {
 } from "./handler.ts";
 
 exportEnv();
-const port = parseInt(env("PORT") ?? "3000");
-export const db = await Deno.openKv(Deno.env.get("DATABASE"))
+const port = envNum("PORT");
+export const db = await Deno.openKv(Deno.env.get("DATABASE"));
 
 Deno.serve({ port }, (_req) => {
   if (route(_req, "GET", "/")) return indexHandler();

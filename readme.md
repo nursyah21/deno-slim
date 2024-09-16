@@ -6,6 +6,7 @@ very minimalist deno framework
 
 - [x] routing
 - [x] dotenv
+- [x] cors
 - [x] jwt
 - [x] bcrypt
 - [x] bodyparser
