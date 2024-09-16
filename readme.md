@@ -26,7 +26,7 @@ mkdir myproject && cd myproject
 
 init with degit
 ```bash
-degit nursyah21/deno-slim . && cp .env.example
+degit nursyah21/deno-slim . && cp .env.example .env
 ```
 
 init with git
