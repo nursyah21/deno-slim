@@ -46,6 +46,8 @@ deno install -Arf jsr:@deno/deployctl
 ```
 
 deploy
+
+> if you want to deploy make sure you comment database in .env
 ```bash
 deployctl deploy
 ```

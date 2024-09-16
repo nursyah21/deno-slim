@@ -38,7 +38,8 @@ export const exportEnv = () => {
           val = val.slice(1, val.length - 1);
         }
       }
-      Deno.env.set(key, val);
+
+      if (!e.startsWith("#")) Deno.env.set(key, val);
     });
   } catch (_) {}
 };

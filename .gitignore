@@ -1,3 +1,7 @@
 .env
 .denoflare
 db.sqlite*
+
+# because went we deploy, project id is stored in deno.json
+deno.json
+deno.lock
