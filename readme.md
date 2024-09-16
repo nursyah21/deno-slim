@@ -26,12 +26,12 @@ mkdir myproject && cd myproject
 
 init with degit
 ```bash
-degit nursyah21/deno-slim .
+degit nursyah21/deno-slim . && cp .env.example
 ```
 
 init with git
 ```bash
-git clone --depth 1 https://github.com/nursyah21/deno-slim . && rm -rf .git
+git clone --depth 1 https://github.com/nursyah21/deno-slim . && rm -rf .git && cp .env.example .env
 ```
 
 ### development
