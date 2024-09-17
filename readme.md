@@ -19,19 +19,9 @@ very minimalist deno framework
 
 ### initialize
 
-first create directory project
+clone repo
 ```bash
-mkdir myproject && cd myproject
-```
-
-init with degit
-```bash
-degit nursyah21/deno-slim . && cp .env.example .env
-```
-
-init with git
-```bash
-git clone --depth 1 https://github.com/nursyah21/deno-slim . && rm -rf .git && cp .env.example .env
+git clone --depth 1 https://github.com/nursyah21/deno-slim
 ```
 
 ### development
