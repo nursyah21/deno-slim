@@ -4,11 +4,11 @@ import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
 import jwt from "npm:@tsndr/cloudflare-worker-jwt";
 import { db } from "./main.ts";
 
-export const indexHandler = () => {
+export const index = () => {
   return response("hi mom");
 };
 
-export const resetHandler = async () => {
+export const reset = async () => {
   const listUser = db.list({ prefix: ["users"] });
   for await (const user of listUser) {
     await db.delete(user.key);
@@ -16,7 +16,7 @@ export const resetHandler = async () => {
   return response("delete success");
 };
 
-export const listUserHandler = async (_req?: Request) => {
+export const listUser = async (_req?: Request) => {
   const listUser = db.list({ prefix: ["users"] });
   const data = [];
   for await (const { key, value } of listUser) {
@@ -25,7 +25,7 @@ export const listUserHandler = async (_req?: Request) => {
   return responseJson(data);
 };
 
-export const registerHandler = async (_req: Request) => {
+export const register = async (_req: Request) => {
   const body: UserProps = await bodyParser(_req);
   if (!body) {
     return response("json body is required", { status: 400 });
@@ -62,7 +62,7 @@ export const registerHandler = async (_req: Request) => {
   return responseJson({ token });
 };
 
-export const dataHandler = async () => {
+export const data = async () => {
   const { data, error } = await fetchApi(
     "https://raw.githubusercontent.com/mayankchoubey/deno-vs-nodejs/master/getData.json"
   );

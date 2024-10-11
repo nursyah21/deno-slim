@@ -1,25 +1,29 @@
 import { colors } from "./constants.ts";
 import { env, envNum, response } from "./helper.ts";
 import { route, exportEnv } from "./lib.ts";
-import {
-  dataHandler,
-  indexHandler,
-  listUserHandler,
-  registerHandler,
-  resetHandler,
-} from "./handler.ts";
+import * as handler from "./handler.ts";
 
 exportEnv();
 const port = envNum("PORT");
 
 export const db = await Deno.openKv(env("DATABASE"));
 
-Deno.serve({ port }, (_req) => {  
-  if (route(_req, "GET", "/")) return indexHandler();
-  if (route(_req, "GET", "/data")) return dataHandler();
-  if (route(_req, "POST", "/register")) return registerHandler(_req);
-  if (route(_req, "POST", "/reset")) return resetHandler();
-  if (route(_req, "GET", "/listuser")) return listUserHandler();
+Deno.serve({ port }, (_req) => {
+  if (route(_req, "GET", "/")) {
+    return handler.index();
+  }
+  if (route(_req, "GET", "/data")) {
+    return handler.data();
+  }
+  if (route(_req, "POST", "/register")) {
+    return handler.register(_req);
+  }
+  if (route(_req, "POST", "/reset")) {
+    return handler.reset();
+  }  
+  if (route(_req, "GET", "/listuser")) {
+    return handler.reset();
+  }
 
   if (env("DEBUG") == "true") {
     console.debug(
