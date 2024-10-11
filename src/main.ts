@@ -22,7 +22,7 @@ Deno.serve({ port }, (_req) => {
     return handler.reset();
   }  
   if (route(_req, "GET", "/listuser")) {
-    return handler.reset();
+    return handler.listUser();
   }
 
   if (env("DEBUG") == "true") {
