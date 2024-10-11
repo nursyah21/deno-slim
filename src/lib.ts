@@ -86,6 +86,7 @@ export const route = (
         }${_method}: ${colors.blue}${_pathname}${colors.reset}`
       );
     }
+    
     return true;
   }
 

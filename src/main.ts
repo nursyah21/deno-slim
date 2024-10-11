@@ -11,20 +11,19 @@ import {
 
 exportEnv();
 const port = envNum("PORT");
-console.log(Deno.env.get("DATABASE"))
-export const db = await Deno.openKv(Deno.env.get("DATABASE"));
 
-Deno.serve({ port }, (_req) => {
+export const db = await Deno.openKv(env("DATABASE"));
+
+Deno.serve({ port }, (_req) => {  
   if (route(_req, "GET", "/")) return indexHandler();
   if (route(_req, "GET", "/data")) return dataHandler();
   if (route(_req, "POST", "/register")) return registerHandler(_req);
   if (route(_req, "POST", "/reset")) return resetHandler();
   if (route(_req, "GET", "/listuser")) return listUserHandler();
 
-  if (env("DEBUG") != "false") {
+  if (env("DEBUG") == "true") {
     console.debug(
-      `${colors.red}${new Date().toLocaleString().replace(" ", "")} | ${
-        _req.method
+      `${colors.red}${new Date().toLocaleString().replace(" ", "")} | ${_req.method
       }: ${new URL(_req.url).pathname} Not Found`
     );
   }
