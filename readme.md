@@ -12,7 +12,7 @@ very minimalist deno framework
 - [x] bodyparser
 - [x] logging
 - [x] kv database
-- [ ] file upload
+- [ ] file upload (s3)
 - [ ] web socket
 - [ ] send email
 - [ ] graphql
