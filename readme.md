@@ -26,7 +26,7 @@ git clone --depth 1 https://github.com/nursyah21/deno-slim
 
 ### development
 ```bash
-deno run -A --unstable-kv --watch ./src/main.ts
+deno run dev
 ```
 
 ### deploy

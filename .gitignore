@@ -3,5 +3,6 @@
 db.sqlite*
 
 # because went we deploy, project id is stored in deno.json
-deno.json
+# if theres any project id remember to delete it before update this repo
+# deno.json
 deno.lock
