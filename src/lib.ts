@@ -30,17 +30,14 @@ export const createHeader = (name?: string, value?: string) => {
 export const exportEnv = () => {
   try {
     const envfile = Deno.readTextFileSync(".env");
-    envfile.split("\n").forEach((e) => {
-      let [key, val] = e.split("=");
-      const regex = [/^'(.+?)'$/, /^"(.+?)"$/];
-      for (const r of regex) {
-        if (r.test(val)) {
-          val = val.slice(1, val.length - 1);
-        }
-      }
+        
+    envfile.split('\n').forEach(e=>{
+      if(e.startsWith('#') || !e) return
+      const [key ,..._val] = e.replace("="," ").split(" ");
+      const val = _val.join(" ")
 
-      if (!e.startsWith("#")) Deno.env.set(key, val);
-    });
+      Deno.env.set(key, val)
+    })    
   } catch (_) {}
 };
 

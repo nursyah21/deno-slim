@@ -11,6 +11,7 @@ import {
 
 exportEnv();
 const port = envNum("PORT");
+console.log(Deno.env.get("DATABASE"))
 export const db = await Deno.openKv(Deno.env.get("DATABASE"));
 
 Deno.serve({ port }, (_req) => {
