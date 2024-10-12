@@ -1,4 +1,7 @@
 {
+  "name": "@nurs/denoslim",
+  "version": "0.2.6",
+  "exports":"./mod.ts",
   "tasks": {
     "dev": "deno run -A --unstable-kv --watch=./src/,.env ./src/main.ts"
   },
