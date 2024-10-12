@@ -1,5 +1,6 @@
 // deno-lint-ignore-file no-empty ban-ts-comment
 import { colors, allowOrigin } from "./constants.ts";
+import { env, response } from "./helper.ts";
 
 export const bodyParser = async (_req: Request) => {
   try {
@@ -30,15 +31,15 @@ export const createHeader = (name?: string, value?: string) => {
 export const exportEnv = () => {
   try {
     const envfile = Deno.readTextFileSync(".env");
-        
-    envfile.split('\n').forEach(e=>{
-      if(e.startsWith('#') || !e) return
-      const [key ,..._val] = e.replace("="," ").split(" ");
+
+    envfile.split('\n').forEach(e => {
+      if (e.startsWith('#') || !e) return
+      const [key, ..._val] = e.replace("=", " ").split(" ");
       const val = _val.join(" ")
 
       Deno.env.set(key, val)
-    })    
-  } catch (_) {}
+    })
+  } catch (_) { }
 };
 
 export const fetchApi = async (link: string, json: boolean = true) => {
@@ -67,28 +68,69 @@ export const findDb = async (
         return { key, value };
       }
     }
-  } catch (_) {}
+  } catch (_) { }
   return null;
 };
 
-export const route = (
-  _req: Request,
-  method: "GET" | "POST" | "PUT" | "DELETE",
-  pathname: string
-) => {
-  const _pathname = new URL(_req.url).pathname;
-  const _method = _req.method;
-  if (_pathname === pathname && _method === method) {
-    if (Deno.env.get("DEBUG") != "false") {
-      console.debug(
-        `${colors.yellow}${new Date().toLocaleString().replace(" ", "")} | ${
-          colors.green
-        }${_method}: ${colors.blue}${_pathname}${colors.reset}`
-      );
-    }
-    
-    return true;
+enum Method {
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+  DELETE = "DELETE"
+}
+export class Route {
+  private _req: Request
+
+  constructor(_req: Request) {
+    this._req = _req
   }
 
-  return false;
-};
+  private showdebug(showError: boolean = false) {    
+    if (env("DEBUG") == "true") {
+      const method = this._req.method
+      const pathname = new URL(this._req.url).pathname
+      const time = new Date().toLocaleString().split(" ")[1]
+
+      if (showError) {
+        return console.debug(
+          `${colors.red}${time} | ${method}: ${pathname} not found`
+        )
+      }
+
+      console.debug(
+        `${colors.blue}${time} | ${method}: ${pathname}`
+      )
+    }
+  }
+
+  notfound() {
+    this.showdebug(true)
+    return response("path not found", { status: 400 });
+  }
+
+  private abstracroute(path: string, method: Method) {
+    const res = (new URL(this._req.url).pathname == path && this._req.method == method)
+      ? true
+      : false
+    if (res) {
+      this.showdebug()
+    }
+    return res
+  }
+
+  get(path: string) {
+    return this.abstracroute(path, Method.GET)
+  }
+
+  post(path: string) {
+    return this.abstracroute(path, Method.POST)
+  }
+
+  put(path: string) {
+    return this.abstracroute(path, Method.PUT)
+  }
+
+  delete(path: string) {
+    return this.abstracroute(path, Method.DELETE)
+  }
+}
