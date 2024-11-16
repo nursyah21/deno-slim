@@ -12,7 +12,6 @@ while (!change) {
   change = await xport.isPortAvailable({ port });
   port += 1;
 }
-console.log(port, await xport.isPortAvailable({ port }))
 
 Deno.serve({ port }, (_req) => {
   const router = new Route(_req);
